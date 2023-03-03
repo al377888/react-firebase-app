@@ -45,6 +45,8 @@ function CustomAppBar() {
     }
   };
   
+  //Programar hook para abrir el modal
+
   return (
     <>
     <AppBar position="static">
@@ -169,7 +171,8 @@ function CustomAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
-    <SessionModal/>
+    {session.checkUser()?
+      <></> : <SessionModal/>}
     </>
   );
 }

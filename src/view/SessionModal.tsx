@@ -24,14 +24,6 @@ const modalStyle = {
 
 export default function SessionModal() {
 
-  //Open/Close modal Hook
-  const [open, setOpen] = useState(false);
-
-  //No funciona al quitar el hook del login
-  useEffect(() => {
-    setOpen(!session.checkUser())
-  }, [sessionStorage.getItem('user')]);
-
   //Sign in/out option Hook
   const [option, setOption] = useState(sessionOptions[0]);
   
@@ -82,7 +74,7 @@ export default function SessionModal() {
 
   return (
     <Modal
-    open={open}
+    open={true}
     aria-labelledby="modal-modal-title"
     aria-describedby="modal-modal-description"
     >
