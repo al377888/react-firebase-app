@@ -12,6 +12,7 @@ const session = new SessionViewModel();
 function CustomAppBar() {
 
   //Session Hook
+  //Cuando recargo no detecta sesión iniciada, pero luego hago login sin datos y sí (a pesar del fallo de firebase)
   const [logged, setLogged] = useState(session.checkUser());
   
   const handleLoggedState = () => {

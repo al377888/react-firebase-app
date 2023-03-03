@@ -65,7 +65,12 @@ export default function SessionModal(props: any) {
       });
       props.handleLoggedState();
     }else{
-      //session.signUp('', '');
+      await session.signUp(formData.email, formData.password)
+      .catch((error) => {
+        errorMessage = error.message;
+        //USAR
+      });
+      props.handleLoggedState();
     }
     setFormData({
       email: '',

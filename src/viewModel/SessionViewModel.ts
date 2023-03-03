@@ -21,6 +21,18 @@ class SessionViewModel {
             throw error;
         });
     }
+
+    async signUp(email: string, password: string) {
+        await authTools.createUserWithEmailAndPassword(SessionViewModel.auth, email, password)
+         .then((user) => {
+             console.log('Signed in');
+         })
+         .catch((error) => {
+             console.log(error.message);
+             throw error;
+         });
+     }
+
     async signOut() {
         await authTools.signOut(SessionViewModel.auth)
         .then(() => {
@@ -30,6 +42,18 @@ class SessionViewModel {
             const errorMessage = error.message;
             console.log(errorMessage);
         });
+    }
+
+    emailValidation(): boolean {
+        return true;
+    }
+
+    passwordValidation(): boolean {
+        return true;
+    }
+
+    passwordMatchValidation(): boolean {
+        return true;
     }
 }
 
