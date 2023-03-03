@@ -11,15 +11,6 @@ const session = new SessionViewModel();
 
 function CustomAppBar() {
 
-  //Session Hook
-  //Cuando recargo no detecta sesión iniciada, pero luego hago login sin datos y sí (a pesar del fallo de firebase)
-  const [logged, setLogged] = useState(session.checkUser());
-  
-  const handleLoggedState = () => {
-    if(session.checkUser()) setLogged(true);
-    else setLogged(false);
-  };
-  
   //Menus Hook
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -50,7 +41,6 @@ function CustomAppBar() {
       case settings[2]:
         handleCloseUserMenu();
         await session.signOut();
-        handleLoggedState();
         break;
     }
   };
@@ -179,7 +169,7 @@ function CustomAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
-    <SessionModal logged={logged} handleLoggedState={handleLoggedState}/>
+    <SessionModal/>
     </>
   );
 }

@@ -22,15 +22,15 @@ const modalStyle = {
   p: 4,
 };
 
-export default function SessionModal(props: any) {
+export default function SessionModal() {
 
   //Open/Close modal Hook
-  const [open, setOpen] = useState(props.logged ? false : true);
+  const [open, setOpen] = useState(false);
 
+  //No funciona al quitar el hook del login
   useEffect(() => {
-    if(props.logged) setOpen(false);
-    else setOpen(true);
-  }, [props.logged]);
+    setOpen(!session.checkUser())
+  }, [sessionStorage.getItem('user')]);
 
   //Sign in/out option Hook
   const [option, setOption] = useState(sessionOptions[0]);
@@ -57,25 +57,27 @@ export default function SessionModal(props: any) {
   };
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault ( );;
+    event.preventDefault ( );
     if(option === sessionOptions[0]){
       await session.signIn(formData.email, formData.password)
       .catch((error) => {
         setErrorMessage(error.message.substring(10,));
       });
-      props.handleLoggedState();
     }else{
       await session.signUp(formData.email, formData.password)
       .catch((error) => {
         setErrorMessage(error.message.substring(10,));
       });
-      props.handleLoggedState();
     }
-    setFormData({
-      email: '',
-      password: '',
-      repeatPassword: '',
-    });
+    //Limpia el formulario
+    if(session.checkUser()){
+      setFormData({
+        email: '',
+        password: '',
+        repeatPassword: '',
+      });
+      setErrorMessage('');
+    }
   };
 
   return (
