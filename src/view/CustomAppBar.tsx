@@ -3,7 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import { AppBar, Container, Toolbar, Typography, Box, IconButton, Menu, MenuItem, Button, Tooltip, Avatar } from '@mui/material';
 import SessionViewModel from '../viewModel/SessionViewModel';
-import SessionModal from './session/SessionModal';
+import SessionModal from './SessionModal';
 
 const pages = ['Home', 'Dashboard', 'Pricing'];
 const settings = ['Profile', 'Account', 'Sign out'];

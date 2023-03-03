@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import SessionViewModel from '../../viewModel/SessionViewModel';
+import SessionViewModel from '../viewModel/SessionViewModel';
 
 const sessionOptions: string[] = ['Sign in','Sign up'];
 const session = new SessionViewModel();
