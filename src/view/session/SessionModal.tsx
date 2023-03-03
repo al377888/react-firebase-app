@@ -22,24 +22,15 @@ const modalStyle = {
   p: 4,
 };
 
-export default function SessionModal() {
-
-  //Session Hook
-  const [logged, setLogged] = useState(session.checkUser());
-  
-  const handleLoggedState = () => {
-    if(session.checkUser()) setLogged(true);
-    else setLogged(false);
-  };
+export default function SessionModal(props: any) {
 
   //Open/Close modal Hook
-  const [open, setOpen] = useState(logged ? false : true);
+  const [open, setOpen] = useState(props.logged ? false : true);
 
-  //useEffect se ejecuta cuando el hook con el que opera se modifica
   useEffect(() => {
-    if(logged) setOpen(false);
+    if(props.logged) setOpen(false);
     else setOpen(true);
-  });
+  }, [props.logged]);
 
   //Sign in/out option Hook
   const [option, setOption] = useState(sessionOptions[0]);
@@ -72,10 +63,15 @@ export default function SessionModal() {
         errorMessage = error.message;
         //USAR
       });
-      handleLoggedState();
+      props.handleLoggedState();
     }else{
-      session.signIn('', '');
+      //session.signUp('', '');
     }
+    setFormData({
+      email: '',
+      password: '',
+      repeatPassword: '',
+    });
   };
 
   return (

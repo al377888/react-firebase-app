@@ -10,7 +10,16 @@ const settings = ['Profile', 'Account', 'Sign out'];
 const session = new SessionViewModel();
 
 function CustomAppBar() {
+
+  //Session Hook
+  const [logged, setLogged] = useState(session.checkUser());
   
+  const handleLoggedState = () => {
+    if(session.checkUser()) setLogged(true);
+    else setLogged(false);
+  };
+  
+  //Menus Hook
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -29,7 +38,7 @@ function CustomAppBar() {
     setAnchorElUser(null);
   };
 
-  const handleSettings = (setting: string) => {
+  const handleUserMenuSettings = async (setting: string) => {
     switch(setting){
       case settings[0]:
         handleCloseUserMenu();
@@ -39,7 +48,8 @@ function CustomAppBar() {
         break;
       case settings[2]:
         handleCloseUserMenu();
-        session.signOut();
+        await session.signOut();
+        handleLoggedState();
         break;
     }
   };
@@ -159,7 +169,7 @@ function CustomAppBar() {
             >
               {settings.map((setting) => 
               (
-                <MenuItem key={setting} onClick={()=>{handleSettings(setting)}}>
+                <MenuItem key={setting} onClick={()=>{handleUserMenuSettings(setting)}}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -168,7 +178,7 @@ function CustomAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
-    <SessionModal/>
+    <SessionModal logged={logged} handleLoggedState={handleLoggedState}/>
     </>
   );
 }
