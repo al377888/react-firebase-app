@@ -43,18 +43,6 @@ class SessionViewModel {
             console.log(errorMessage);
         });
     }
-
-    emailValidation(): boolean {
-        return true;
-    }
-
-    passwordValidation(): boolean {
-        return true;
-    }
-
-    passwordMatchValidation(): boolean {
-        return true;
-    }
 }
 
 export default SessionViewModel

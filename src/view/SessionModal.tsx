@@ -47,6 +47,8 @@ export default function SessionModal(props: any) {
     repeatPassword: '',
   });
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleChange = (event: any) => {
     setFormData({
       ...formData,
@@ -55,20 +57,17 @@ export default function SessionModal(props: any) {
   };
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault ( );
-    var errorMessage: string = '';
+    event.preventDefault ( );;
     if(option === sessionOptions[0]){
       await session.signIn(formData.email, formData.password)
       .catch((error) => {
-        errorMessage = error.message;
-        //USAR
+        setErrorMessage(error.message.substring(10,));
       });
       props.handleLoggedState();
     }else{
       await session.signUp(formData.email, formData.password)
       .catch((error) => {
-        errorMessage = error.message;
-        //USAR
+        setErrorMessage(error.message.substring(10,));
       });
       props.handleLoggedState();
     }
@@ -158,6 +157,7 @@ export default function SessionModal(props: any) {
                 </Button>
               </Box>
             </div>
+            <Typography color='red'>{errorMessage}</Typography>
           </Box>
       </Box>
     </Modal>
