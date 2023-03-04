@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import { AppBar, Container, Toolbar, Typography, Box, IconButton, Menu, MenuItem, Button, Tooltip, Avatar } from '@mui/material';
@@ -41,11 +41,13 @@ function CustomAppBar() {
       case settings[2]:
         handleCloseUserMenu();
         await session.signOut();
+        setModalState(true);
         break;
     }
   };
-  
-  //Programar hook para abrir el modal
+
+  //Modal state Hook
+  const [modalState, setModalState] = useState(!session.checkUser());
 
   return (
     <>
@@ -171,8 +173,8 @@ function CustomAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
-    {session.checkUser()?
-      <></> : <SessionModal/>}
+    {modalState?
+     <SessionModal onChange={setModalState}/> :  <></>}
     </>
   );
 }

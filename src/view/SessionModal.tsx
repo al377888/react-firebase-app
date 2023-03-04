@@ -22,7 +22,7 @@ const modalStyle = {
   p: 4,
 };
 
-export default function SessionModal() {
+export default function SessionModal(props: any) {
 
   //Sign in/out option Hook
   const [option, setOption] = useState(sessionOptions[0]);
@@ -69,6 +69,7 @@ export default function SessionModal() {
         repeatPassword: '',
       });
       setErrorMessage('');
+      props.onChange(false);
     }
   };
 
