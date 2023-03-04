@@ -22,7 +22,11 @@ const modalStyle = {
   p: 4,
 };
 
-export default function SessionModal(props: any) {
+interface propsType {
+  onChange(state: boolean): void;
+}
+
+export default function SessionModal(props: propsType) {
 
   //Sign in/out option Hook
   const [option, setOption] = useState(sessionOptions[0]);
