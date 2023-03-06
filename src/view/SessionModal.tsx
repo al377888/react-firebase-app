@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import SessionViewModel from '../viewModel/SessionViewModel';
 
@@ -52,6 +52,19 @@ export default function SessionModal(props: propsType) {
     });
   };
 
+  const checkPassword = (): string => {
+    const passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}$");
+    var test = passwordRegExp.test(formData.password); 
+    console.log(formData.password, test);
+    if(!test){
+      return "Error: invalid password format.";
+    }
+    if(formData.password!==formData.repeatPassword){
+      return "Error: passwords don't match.";
+    }
+    return "";
+  };
+
   const handleSubmit = async (event: any) => {
     event.preventDefault ( );
     if(option === sessionOptions[0]){
@@ -60,10 +73,16 @@ export default function SessionModal(props: propsType) {
         setErrorMessage(error.message.substring(10,));
       });
     }else{
-      await session.signUp(formData.email, formData.password)
-      .catch((error) => {
-        setErrorMessage(error.message.substring(10,));
-      });
+      var formatError = checkPassword();
+      if(formatError !==""){
+        setErrorMessage(formatError);
+      }
+      else{
+        await session.signUp(formData.email, formData.password)
+        .catch((error) => {
+          setErrorMessage(error.message.substring(10,));
+        });
+      }
     }
     //Limpia el formulario
     if(session.checkUser()){
